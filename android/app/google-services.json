@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "303483063451",
+    "project_id": "erasofttask",
+    "storage_bucket": "erasofttask.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303483063451:android:43ed0008a7cea08991ca3e",
+        "android_client_info": {
+          "package_name": "com.example.flutter_firebase_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYKRyUNpzuWR9DToTtQD_VH1BY4iOPrjE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
