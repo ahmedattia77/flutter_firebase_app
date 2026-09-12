@@ -61,11 +61,6 @@ class AppRouter {
           builder: (context) => Center(child: Text("comming soon")),
         );
 
-      // case AppRoutes.homeScreenRoute:
-      //   return MaterialPageRoute(
-      //     builder: (context) => Center(child: Text("comming soon")),
-      //   );
-
       case AppRoutes.resetPasswordScreenRoute:
         return MaterialPageRoute(
           builder: (context) => Center(child: Text("comming soon")),

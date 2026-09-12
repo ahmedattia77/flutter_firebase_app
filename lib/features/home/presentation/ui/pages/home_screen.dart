@@ -61,9 +61,14 @@ class HomeScreen extends StatelessWidget {
                 final note = notes[index];
 
                 return CustomNoteItem(
+                  noteId: note.id,
                   title: note.title,
                   description: note.subTitle,
                   backgroundColor: Color(note.color),
+                  onDismissed: (direction) {
+                    context.read<HomeCubit>().deleteNote(noteId: note.id);
+                  },
+                  onTap: () {},
                 );
               },
             );

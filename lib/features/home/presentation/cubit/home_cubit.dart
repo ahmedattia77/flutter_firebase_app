@@ -58,4 +58,21 @@ class HomeCubit extends Cubit<HomeState> {
       emit(HomeError(erorrMassage: 'Unexpected error occurred: $e'));
     }
   }
+
+  Future<void> deleteNote({required String noteId}) async {
+    try {
+      await FireBaseHelper.firestore
+          .collection('users')
+          .doc(FireBaseHelper.user!.uid)
+          .collection('notes')
+          .doc(noteId)
+          .delete();
+
+      await fetchNotes();
+    } on FirebaseException catch (e) {
+      emit(HomeError(erorrMassage: e.message ?? 'Failed to delete note'));
+    } catch (e) {
+      emit(HomeError(erorrMassage: 'Unexpected error occurred: $e'));
+    }
+  }
 }

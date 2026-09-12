@@ -48,11 +48,7 @@ class _LoginBodyState extends State<LoginBody> {
             ),
           );
 
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            AppRoutes.homeScreenRoute,
-            (route) => false,
-          );
+          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
         }
 
         if (state is LoginError) {
@@ -190,7 +186,7 @@ class _LoginBodyState extends State<LoginBody> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    child: state is LoginLoading
+                    child: state is RegisterLoading
                         ? const SizedBox(
                             height: 20,
                             width: 20,
