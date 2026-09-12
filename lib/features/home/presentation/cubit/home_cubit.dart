@@ -16,7 +16,6 @@ class HomeCubit extends Cubit<HomeState> {
     required int color,
   }) async {
     emit(HomeAddNoteLoading());
-
     try {
       await FireBaseHelper.firestore
           .collection('users')
@@ -29,10 +28,7 @@ class HomeCubit extends Cubit<HomeState> {
             'color': color,
             'createdAt': FieldValue.serverTimestamp(),
           });
-
       emit(HomeAddNoteSuccess());
-
-      fetchNotes();
     } on FirebaseException catch (e) {
       emit(HomeAddNoteError(erorrMassage: e.message ?? 'Failed to add note'));
     } catch (e) {

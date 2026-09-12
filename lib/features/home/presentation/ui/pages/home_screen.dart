@@ -23,7 +23,9 @@ class HomeScreen extends StatelessWidget {
             context,
             AppRoutes.addNoteScreenRoute,
             arguments: context.read<HomeCubit>(),
-          );
+          ).then((_) {
+            context.read<HomeCubit>().fetchNotes();
+          });
         },
       ),
       body: BlocBuilder<HomeCubit, HomeState>(
