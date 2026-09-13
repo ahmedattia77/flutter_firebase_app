@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_firebase_app/features/home/data/model/note_model.dart';
-import 'package:flutter_firebase_app/features/home/presentation/cubit/home_cubit.dart';
+import 'package:flutter_firebase_app/features/home/presentation/cubit/add_screen/cubit/add_note_screen_cubit.dart';
+import 'package:flutter_firebase_app/features/home/presentation/cubit/home/home_cubit.dart';
 import 'package:flutter_firebase_app/features/home/presentation/ui/widgets/color_picker_palette.dart';
 
 class AddNoteScreen extends StatefulWidget {
@@ -130,8 +131,8 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                 },
               ),
               const SizedBox(height: 36),
-              BlocConsumer<HomeCubit, HomeState>(
-                listenWhen: (previous, current) =>
+              BlocConsumer<AddNoteScreenCubit, AddNoteScreenState>(
+                listenWhen: (_, current) =>
                     current is HomeAddNoteSuccess ||
                     current is HomeAddNoteError,
                 listener: (context, state) {
@@ -142,9 +143,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                         backgroundColor: Colors.green,
                       ),
                     );
-                    if (context.mounted) {
-                      Navigator.pop(context);
-                    }
+                    Navigator.pop(context);
                   } else if (state is HomeAddNoteError) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -154,7 +153,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                     );
                   }
                 },
-                buildWhen: (previous, current) =>
+                buildWhen: (_, current) =>
                     current is HomeAddNoteLoading ||
                     current is HomeAddNoteSuccess ||
                     current is HomeAddNoteError,
@@ -178,7 +177,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                               if (_formKey.currentState!.validate()) {
                                 if (isEditMode) {
                                 } else {
-                                  context.read<HomeCubit>().addNote(
+                                  context.read<AddNoteScreenCubit>().addNote(
                                     title: _titleController.text.trim(),
                                     subTitle: _subTitleController.text.trim(),
                                     details: _detailsController.text.trim(),
@@ -186,20 +185,18 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                                   );
                                 }
                               }
-                              Navigator.pop(context);
+                              // Navigator.pop(context);
                             },
-                      child:
-                          // isLoading
-                          //     ? const CircularProgressIndicator(color: Colors.white)
-                          // :
-                          Text(
-                            isEditMode ? 'update note' : 'add note',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                      child: isLoading
+                          ? const CircularProgressIndicator(color: Colors.white)
+                          : Text(
+                              isEditMode ? 'update note' : 'add note',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
                     ),
                   );
                 },

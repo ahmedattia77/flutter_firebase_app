@@ -9,32 +9,32 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
 
-  Future<void> addNote({
-    required String title,
-    required String subTitle,
-    required String details,
-    required int color,
-  }) async {
-    emit(HomeAddNoteLoading());
-    try {
-      await FireBaseHelper.firestore
-          .collection('users')
-          .doc(FireBaseHelper.user!.uid)
-          .collection('notes')
-          .add({
-            'title': title,
-            'subTitle': subTitle,
-            'details': details,
-            'color': color,
-            'createdAt': FieldValue.serverTimestamp(),
-          });
-      emit(HomeAddNoteSuccess());
-    } on FirebaseException catch (e) {
-      emit(HomeAddNoteError(erorrMassage: e.message ?? 'Failed to add note'));
-    } catch (e) {
-      emit(HomeAddNoteError(erorrMassage: 'Unexpected error occurred: $e'));
-    }
-  }
+  // Future<void> addNote({
+  //   required String title,
+  //   required String subTitle,
+  //   required String details,
+  //   required int color,
+  // }) async {
+  //   emit(HomeAddNoteLoading());
+  //   try {
+  //     await FireBaseHelper.firestore
+  //         .collection('users')
+  //         .doc(FireBaseHelper.user!.uid)
+  //         .collection('notes')
+  //         .add({
+  //           'title': title,
+  //           'subTitle': subTitle,
+  //           'details': details,
+  //           'color': color,
+  //           'createdAt': FieldValue.serverTimestamp(),
+  //         });
+  //     emit(HomeAddNoteSuccess());
+  //   } on FirebaseException catch (e) {
+  //     emit(HomeAddNoteError(erorrMassage: e.message ?? 'Failed to add note'));
+  //   } catch (e) {
+  //     emit(HomeAddNoteError(erorrMassage: 'Unexpected error occurred: $e'));
+  //   }
+  // }
 
   Future<void> fetchNotes() async {
     emit(HomeLoading());
@@ -67,7 +67,6 @@ class HomeCubit extends Cubit<HomeState> {
           .collection('notes')
           .doc(noteId)
           .delete();
-
       await fetchNotes();
     } on FirebaseException catch (e) {
       emit(HomeError(erorrMassage: e.message ?? 'Failed to delete note'));

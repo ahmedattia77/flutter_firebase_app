@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_firebase_app/core/routing/app_routes.dart';
-import 'package:flutter_firebase_app/features/home/presentation/cubit/home_cubit.dart';
+import 'package:flutter_firebase_app/features/home/presentation/cubit/add_screen/cubit/add_note_screen_cubit.dart';
+import 'package:flutter_firebase_app/features/home/presentation/cubit/home/home_cubit.dart';
 import 'package:flutter_firebase_app/features/home/presentation/ui/widgets/custom_drawer.dart';
 import 'package:flutter_firebase_app/features/home/presentation/ui/widgets/custom_note_item.dart';
 
@@ -19,11 +20,7 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          Navigator.pushNamed(
-            context,
-            AppRoutes.addNoteScreenRoute,
-            arguments: context.read<HomeCubit>(),
-          ).then((_) {
+          Navigator.pushNamed(context, AppRoutes.addNoteScreenRoute).then((_) {
             context.read<HomeCubit>().fetchNotes();
           });
         },
@@ -46,7 +43,7 @@ class HomeScreen extends StatelessWidget {
           if (state is HomeSuccess) {
             final notes = state.notes;
 
-            if (notes.isEmpty) {
+            if (notes!.isEmpty) {
               return const Center(
                 child: Text('No notes found, add your first note!'),
               );

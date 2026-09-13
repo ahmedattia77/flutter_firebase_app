@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_firebase_app/core/routing/app_routes.dart';
 import 'package:flutter_firebase_app/features/athu/login/presentation/cubit/login_cubit.dart';
 import 'package:flutter_firebase_app/features/athu/login/presentation/ui/login_screen.dart';
-import 'package:flutter_firebase_app/features/home/presentation/cubit/home_cubit.dart';
+import 'package:flutter_firebase_app/features/home/presentation/cubit/add_screen/cubit/add_note_screen_cubit.dart';
+import 'package:flutter_firebase_app/features/home/presentation/cubit/home/home_cubit.dart';
 import 'package:flutter_firebase_app/features/home/presentation/ui/pages/add_note_screen.dart';
 import 'package:flutter_firebase_app/features/home/presentation/ui/pages/home_screen.dart';
 
@@ -40,10 +41,9 @@ class AppRouter {
         );
 
       case AppRoutes.addNoteScreenRoute:
-        final homeCubit = settings.arguments as HomeCubit;
         return MaterialPageRoute(
-          builder: (context) => BlocProvider.value(
-            value: homeCubit,
+          builder: (context) => BlocProvider(
+            create: (context) => AddNoteScreenCubit(),
             child: const AddNoteScreen(),
           ),
         );
